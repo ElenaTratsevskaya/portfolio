@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElenaTratsevskaya | Portfolio</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: #f6f8fa;
+            color: #1f2328;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 24px 100px;
+        }
+
+        h1 { font-size: 2.4em; font-weight: 600; color: #3d444d; margin-bottom: 4px; letter-spacing: -0.5px; }
+        .subtitle { font-size: 1.1em; color: #57606a; margin-bottom: 8px; }
+
+        .header-links { font-size: 0.95em; margin-top: 2px; }
+        .header-links a { color: #0969da; text-decoration: none; font-weight: 500; }
+        .header-links a:hover { text-decoration: underline; }
+        .header-links span { color: #d0d7de; margin: 0 6px; }
+
+        .section { margin-top: 44px; }
+        h2 { font-size: 1.5em; font-weight: 600; color: #3d444d; margin-bottom: 16px; }
+
+        .two-col { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; margin-top: 44px; align-items: stretch; }
+        .two-col > div { display: flex; flex-direction: column; }
+
+        .about-text p { font-size: 0.93em; color: #3d444d; margin-bottom: 8px; }
+        .about-text p:last-child { margin-bottom: 0; }
+        .about-text .education { margin-top: 10px; }
+
+        .skills-compact { font-size: 0.85em; line-height: 1.7; color: #3d444d; }
+        .skills-compact .row { margin-bottom: 5px; }
+        .skills-compact .cat { font-weight: 700; color: #293241; }
+
+        .projects-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+        .projects-header .titles h2 { margin-bottom: 0; }
+
+        /* Кнопки-фильтры */
+        .filter-buttons { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+        .filter-buttons button {
+            font-family: inherit; font-size: 0.75em; font-weight: 600;
+            border-radius: 20px; padding: 3px 10px;
+            cursor: pointer; transition: all 0.12s ease; white-space: nowrap;
+        }
+        .filter-buttons .count { opacity: 0.75; font-weight: 500; margin-left: 2px; }
+
+        .filter-buttons .filter-all { background: #ffffff; border: 1px solid #0969da; color: #0969da; }
+        .filter-buttons .filter-ai { background: #3D5A80; border: 1px solid #3D5A80; color: #ffffff; }
+        .filter-buttons .filter-ai:hover { background: #2f4866; }
+        .filter-buttons .filter-bi { background: #EE6C4D; border: 1px solid #EE6C4D; color: #ffffff; }
+        .filter-buttons .filter-bi:hover { background: #d95a3c; }
+        .filter-buttons .filter-hackathons { background: #98C1D9; border: 1px solid #98C1D9; color: #293241; }
+        .filter-buttons .filter-hackathons:hover { background: #7fb0cd; }
+        .filter-buttons .filter-dataart { background: #D5EEEF; border: 1px solid #D5EEEF; color: #293241; }
+        .filter-buttons .filter-dataart:hover { background: #c8f0f2; border-color: #c8f0f2; }
+        .filter-buttons .filter-python { background: #6B7280; border: 1px solid #6B7280; color: #ffffff; }
+        .filter-buttons .filter-python:hover { background: #545c66; }
+
+        /* Карточки проектов */
+        .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+        .project {
+            display: flex; flex-direction: column;
+            background: #ffffff;
+            border-radius: 12px; padding: 22px 24px; min-height: 280px;
+            color: inherit;
+            transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.2s ease;
+        }
+        .project { overflow: hidden; }
+        .project:hover { box-shadow: 0 6px 20px rgba(31, 35, 40, 0.12); transform: translateY(-2px); }
+
+        .project-shot {
+            display: block;
+            width: calc(100% + 48px);
+            max-width: none;
+            height: auto;
+            margin: -22px -24px 14px;
+        }
+
+        /* Рамки по умолчанию — бледные */
+        .project.cat-ai { border: 2px solid rgba(61, 90, 128, 0.30); }
+        .project.cat-bi { border: 2px solid rgba(238, 108, 77, 0.30); }
+        .project.cat-hackathon { border: 2px solid rgba(152, 193, 217, 0.55); }
+        .project.cat-dataart { border: 2px solid #D5EEEF; }
+        .project.cat-python { border: 2px solid rgba(107, 114, 128, 0.30); }
+
+        /* При наведении на плашки внизу — рамка становится насыщенной */
+        .project.cat-ai:has(.open-link:hover),
+        .project.cat-ai:has(.badge-dashboard:hover) { border-color: #3D5A80; }
+        .project.cat-bi:has(.open-link:hover),
+        .project.cat-bi:has(.badge-dashboard:hover) { border-color: #EE6C4D; }
+        .project.cat-hackathon:has(.open-link:hover),
+        .project.cat-hackathon:has(.badge-dashboard:hover) { border-color: #98C1D9; }
+        .project.cat-dataart:has(.open-link:hover),
+        .project.cat-dataart:has(.badge-dashboard:hover) { border-color: #D5EEEF; }
+        .project.cat-python:has(.open-link:hover),
+        .project.cat-python:has(.badge-dashboard:hover) { border-color: #6B7280; }
+
+        .tag-row {
+            display: inline-flex; align-items: center; gap: 7px;
+            align-self: flex-start; margin-bottom: 10px;
+            font-size: 0.75em; font-weight: 600; color: #3d444d;
+        }
+        .tag-dot { width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0; }
+        .dot-ai { background: #3D5A80; }
+        .dot-bi { background: #EE6C4D; }
+        .dot-hackathon { background: #98C1D9; }
+        .dot-dataart { background: #D5EEEF; }
+        .dot-python { background: #6B7280; }
+
+        .project h3 { font-size: 1.15em; font-weight: 600; color: #3d444d; margin-bottom: 8px; }
+        .project p { font-size: 0.93em; color: #3d444d; margin-bottom: 6px; }
+
+        /* Мета-блок: «Данные» + «Стек» — прижат к низу */
+        .project .meta-block {
+            margin-top: auto;
+            padding-top: 8px;
+        }
+        .project .meta {
+            font-size: 0.82em;
+            color: #8b949e;
+            margin-bottom: 2px;
+        }
+        .project .meta:last-child { margin-bottom: 0; }
+
+        /* Низ карточки: плашки-ссылки */
+        .bottom-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .project .open-link,
+        .project .badge-dashboard {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.82em; font-weight: 600;
+            text-decoration: none;
+            transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .project .open-link:hover,
+        .project .badge-dashboard:hover {
+            filter: brightness(0.88);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(41, 50, 65, 0.25);
+            text-decoration: none;
+        }
+        .project.cat-ai .open-link,
+        .project.cat-ai .badge-dashboard { background: #3D5A80; color: #ffffff; }
+        .project.cat-bi .open-link,
+        .project.cat-bi .badge-dashboard { background: #EE6C4D; color: #ffffff; }
+        .project.cat-hackathon .open-link,
+        .project.cat-hackathon .badge-dashboard { background: #98C1D9; color: #293241; }
+        .project.cat-dataart .open-link,
+        .project.cat-dataart .badge-dashboard { background: #D5EEEF; color: #293241; }
+        .project.cat-python .open-link,
+        .project.cat-python .badge-dashboard { background: #6B7280; color: #ffffff; }
+
+        .header-row { display: flex; align-items: center; gap: 32px; }
+        .header-row .avatar {
+            width: 150px; height: 150px; border-radius: 0;
+            background-image: url('foto/Elena Tratsevskaya.png'); background-size: cover; background-position: center;
+            background-color: #d0d7de; flex-shrink: 0;
+        }
+        .header-row .titles { flex: 1; }
+
+        a { color: #0969da; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #eaeef2; font-size: 0.85em; color: #8b949e; }
+
+        .grid-hold { min-height: 0; }
+
+        @media (max-width: 640px) {
+            .two-col { grid-template-columns: 1fr; gap: 28px; align-items: start; }
+            .header-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .projects-header { flex-direction: column; align-items: flex-start; }
+            .filter-buttons { justify-content: flex-start; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .grid-hold { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-row">
+        <div class="avatar"></div>
+        <div class="titles">
+            <h1>ElenaTratsevskaya</h1>
+            <p class="subtitle">Business Intelligence | PBI | SQL | DWH | AI-integration</p>
+            <p class="header-links">
+                <a href="https://github.com/ElenaTratsevskaya">GitHub</a>
+                <span>·</span>
+                <a href="https://www.linkedin.com/in/elena-tratsevskaya-a0bb3342/">LinkedIn</a>
+                <span>·</span>
+                <a href="https://t.me/elena_trr">Telegram</a>
+                <span>·</span>
+                <a href="mailto:elena-ne@list.ru">Email</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div>
+            <div class="about-text">
+                <p>BI-разработчик, создаю отчёты и дашборды в связке Power BI и Figma. Уверенно владею BI и DA-инструментами, регулярно пишу статьи на LinkedIn, участвую в хакатонах по анализу данных, активно использую AI (Cursor).</p>
+                <p>От сбора и моделирования данных до презентации проекта: пайплайны данных, семантические модели, отслеживание KPI и self-service отчётность.</p>
+                <p>Умею работать со стейкхолдерами, держать сроки, презентовать решение, управлять качеством.</p>
+                <p class="education">Имею техническое и бизнес-образование.</p>
+            </div>
+        </div>
+
+        <div>
+            <div class="skills-compact">
+                <div class="row"><span class="cat">BI:</span> Power BI, DAX, Power Query, M, PIX BI, Visiology</div>
+                <div class="row"><span class="cat">SQL / DWH:</span> PostgreSQL, ETL, витрины, модели</div>
+                <div class="row"><span class="cat">Интеграции:</span> API, файлы, автообновление, семантические модели</div>
+                <div class="row"><span class="cat">Python:</span> Pandas, NumPy, Matplotlib</div>
+                <div class="row"><span class="cat">Аналитика и документация:</span> ТЗ, инструкции, регламенты, техническая и пользовательская документация</div>
+                <div class="row"><span class="cat">Инструменты:</span> Excel, Google Sheets, Figma, Cursor</div>
+                <div class="row"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="projects-header">
+            <div class="titles">
+                <h2>Projects</h2>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-all active">All <span class="count">(24)</span></button>
+                <button class="filter-ai">AI <span class="count">(6)</span></button>
+                <button class="filter-bi">BI <span class="count">(6)</span></button>
+                <button class="filter-hackathons">Hackathons <span class="count">(5)</span></button>
+                <button class="filter-dataart">Data Art <span class="count">(3)</span></button>
+                <button class="filter-python">Python <span class="count">(4)</span></button>
+            </div>
+        </div>
+
+        <div class="projects-grid">
+
+            <div class="project cat-ai">
+                <img class="project-shot" src="foto/ai_labor_market.png" alt="Рынок труда и влияние ИИ к 2030">
+                <span class="tag-row"><span class="tag-dot dot-ai"></span>AI</span>
+                <h3>Рынок труда и влияние ИИ к 2030</h3>
+                <p>Интерактивный дашборд о том, как искусственный интеллект к 2030 году меняет профессии, отрасли и страны: риск замены, рост занятости, зарплаты, навыки и тренд найма. Около 3 000 ролей и три листа в логике Power BI — трансформация рынка, точки роста, матрица навыков и найма. Проект собран в Cursor.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, AI_Impact_on_Jobs_2030.csv (~3 000 ролей)</p>
+                    <p class="meta">⚙️ Стек: HTML, CSS, JavaScript, Chart.js, ECharts, CSV</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/AI-labor-market-2030-Cursor" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://elenatratsevskaya.github.io/AI-labor-market-2030-Cursor/" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-ai">
+                <img class="project-shot" src="foto/ai_macro.png" alt="Макроиндикаторы и капитал FAOSTAT">
+                <span class="tag-row"><span class="tag-dot dot-ai"></span>AI</span>
+                <h3>Макроиндикаторы и капитал FAOSTAT</h3>
+                <p>FAOSTAT (FAO Statistics) — статистика Продовольственной и сельскохозяйственной организации ООН (FAO). Интерактивный дашборд по макроиндикаторам и запасу капитала: сельское хозяйство, лес и рыба на фоне всей экономики, инвестиции и профили стран.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: FAOSTAT (Macro Indicators, Capital Stock)</p>
+                    <p class="meta">⚙️ Стек: HTML, CSS, JavaScript, Chart.js, Leaflet, TopoJSON, Python, pandas</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/AI-project_FAOSTAT-Macro-Indicators" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://elenatratsevskaya.github.io/AI-project_FAOSTAT-Macro-Indicators/FAOSTAT_Macro_Indicators.html" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-ai">
+                <img class="project-shot" src="foto/ai_plastic.png" alt="Микропластик в Мировом океане">
+                <span class="tag-row"><span class="tag-dot dot-ai"></span>AI</span>
+                <h3>Микропластик в Мировом океане</h3>
+                <p>Интерактивная карта проб микропластика в морской воде и классов загрязнения, 2010–2023. Два режима: области проб и заливка по классу загрязнения. На графике — нарастающий итог измерений и загрязнения, шт/м³. NOAA NCEI — Национальные центры экологической информации США.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: NOAA NCEI Global Marine Microplastics Database</p>
+                    <p class="meta">⚙️ Стек: HTML, CSS, JavaScript, Canvas</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/AI-project_ocean-microplastics-map_Curcor" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://elenatratsevskaya.github.io/AI-project_ocean-microplastics-map_Curcor/ocean-microplastics-map.html" target="_blank" rel="noopener">Карта</a>
+                </div>
+            </div>
+
+            <div class="project cat-ai">
+                <img class="project-shot" src="foto/ai_antarctic.png" alt="Высота наземного льда Антарктиды">
+                <span class="tag-row"><span class="tag-dot dot-ai"></span>AI</span>
+                <h3>Высота наземного льда Антарктиды</h3>
+                <p>Поквартальная анимация изменения высоты поверхности наземного льда Антарктиды по NASA ICESat-2, январь 2019 — апрель 2026. На карте не толщина льда, а изменение высоты относительно 1 января 2019 года. Сетка 20 км.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: NASA ICESat-2 ATL15, NSIDC</p>
+                    <p class="meta">⚙️ Стек: HTML, Python, h5py, NumPy, Pillow</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/AI-Project_Antarctic-Ice_Cursor" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://elenatratsevskaya.github.io/AI-Project_Antarctic-Ice_Cursor/antarctic-land-ice-height.html" target="_blank" rel="noopener">Карта</a>
+                </div>
+            </div>
+
+            <div class="project cat-ai">
+                <img class="project-shot" src="foto/ai_arctik.png" alt="Высота наземного льда Арктики">
+                <span class="tag-row"><span class="tag-dot dot-ai"></span>AI</span>
+                <h3>Высота наземного льда Арктики</h3>
+                <p>Поквартальная анимация изменения высоты поверхности наземного льда Арктики: Гренландия, Канадская Арктика, Исландия, Шпицберген и Российская Арктика. Январь 2019 — апрель 2026, сетка 20 км.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: NASA ICESat-2 ATL15, NSIDC</p>
+                    <p class="meta">⚙️ Стек: HTML, Python, h5py, NumPy, Pillow</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/AI-Project_Arctic-Ice_Cursor" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://elenatratsevskaya.github.io/AI-Project_Arctic-Ice_Cursor/arctic-land-ice-height" target="_blank" rel="noopener">Карта</a>
+                </div>
+            </div>
+
+            <div class="project cat-ai">
+                <img class="project-shot" src="foto/ai_arctic2.png" alt="Высота льда Арктики: outlook до 2030">
+                <span class="tag-row"><span class="tag-dot dot-ai"></span>AI</span>
+                <h3>Высота льда Арктики: outlook до 2030</h3>
+                <p>Наблюдения ICESat-2 до апреля 2026 и линейное продолжение недавнего тренда высоты до октября 2030. Это не климатический прогноз, а иллюстрация, если недавний темп сохранится.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: NASA ICESat-2 ATL15, NSIDC</p>
+                    <p class="meta">⚙️ Стек: HTML, Python, h5py, NumPy, Pillow</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/AI-Project_Arctic-land-ice-height_Outlook" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://elenatratsevskaya.github.io/AI-Project_Arctic-land-ice-height_Outlook/arctic-land-ice-height-outlook" target="_blank" rel="noopener">Карта</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="foto/bi_berlin.png" alt="Недвижимость Берлина">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Недвижимость Берлина: продажа и аренда, 2020–2026</h3>
+                <p>Анализ рынка недвижимости Берлина в трёх сегментах — вторичные продажи, новостройки и аренда — по 82 районам. Дашборд в чёрно-красной стилистике 1920-х: экономические факторы, география и берлинская специфика — энергокласс, год постройки, ремонт.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, Berlin Real Estate Sales &amp; Rentals 2020–2026 (более 90 000 объявлений)</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Black-and-red-BI-analysis-of-Berlin-real-estate" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="foto/bi_bublik.jpg" alt="Кольцевые диаграммы в Power BI">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Кольцевые диаграммы в Power BI</h3>
+                <p>Трансформация стандартной кольцевой диаграммы: несколько колец разного размера, карточки вместо меток данных и доли в процентах. Приём из статьи Power BI Masterclass, на основе круговой диаграммы финансового анализа с прогнозом.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: финансовый анализ с построением прогноза</p>
+                    <p class="meta">⚙️ Стек: Power BI, Power Query</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Donut-Charts-in-Power-BI" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="foto/bi_distans.png" alt="Психологическое благополучие при работе удалённо">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Психологическое благополучие при работе удалённо</h3>
+                <p>Анализ благополучия сотрудников по формату работы (удалённо, гибрид, офис), стрессу, балансу работы и личной жизни, удовлетворённости и показателям социальной изоляции. Эти показатели показаны в том числе по возрастным группам. Два варианта отчёта — Power BI и Tableau.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, Remote Work and Mental Health</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma, Tableau</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Remote_Work_and_Mental_Health-BI_Analysis" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/MentalhealthandremoteworkbyagegroupdatasetfromKaggle/Dash_fin" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="foto/bi_human_cognitive.png" alt="Когнитивные способности человека">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Когнитивные способности человека</h3>
+                <p>Анализ влияния сна, стресса, диеты и экранного времени на когнитивные способности. Отчёт как пример цветографического решения: палитра компании и монохром. Варианты в Power BI и Tableau.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, Human Cognitive Performance</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma, Tableau</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Human_Cognitive_Performance_Analysis" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/HumanCognitivePerformanceAnalysis/Dashboard3" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="foto/bi_kafe.jpg" alt="Продажи кофе в вендинговом автомате">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Продажи кофе в вендинговом автомате</h3>
+                <p>Дашборд по продажам кофе в автомате: сезон, тип напитка, цена и время покупки в течение дня. Исходные данные дополнены расчётными показателями.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, coffee sales</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/DA_BI-Project_Coffee_sales" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="foto/bi_tallin.jpg" alt="Рестораны Таллина">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Рестораны Таллина</h3>
+                <p>Сравнение карты в Power BI и Tableau на одном наборе: рестораны Таллина — кухня, цена, оценки еды, сервиса и атмосферы, координаты. Взвешенный балл: 0,6 еда + 0,2 атмосфера + 0,2 обслуживание.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, Tallinn Restaurants 2026</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma, Tableau</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Creating-maps-in-Power-BI-and-Tableau" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/TallinRestaurants2026/Dashboard1#1" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-hackathon">
+                <img class="project-shot" src="foto/hackathon_visiology.png" alt="Розничные вклады банка «Северный контур»">
+                <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
+                <h3>Розничные вклады банка «Северный контур»</h3>
+                <p>Хакатон Visiology / Cortex, сентябрь–ноябрь 2026, команда BI Ladies. Дашборд по розничным вкладам: CRM и удержание, стоимость фондирования и ликвидность, сроки 91 и 181 день.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: файлы банка «Северный контур»</p>
+                    <p class="meta">⚙️ Стек: Visiology, DAX, Cortex, Cursor</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Cortex-Challenge_Visiology_Hackathon" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-hackathon">
+                <img class="project-shot" src="foto/hackathon_pix.jpg" alt="Эффективность фонда скважин">
+                <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
+                <h3>Эффективность фонда скважин</h3>
+                <p>Конкурс PIX BI, 23 июня — 24 июля 2026. Анализ фонда скважин по месторождениям, оценка буровых подрядчиков и причин ремонтов. Часть виджетов собрана на JS.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: фонд скважин, подрядчики, ремонты</p>
+                    <p class="meta">⚙️ Стек: PIX BI, js</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/BI-analysis-of-well-efficiency" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-hackathon">
+                <img class="project-shot" src="foto/hackathon_fb.jpg" alt="Финансовый анализ продаж">
+                <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
+                <h3>Финансовый анализ продаж</h3>
+                <p>Конкурс Fastboard, ноябрь 2025. Финансовый анализ продаж: маржинальность брендов, влияние наценки и скидок, прибыль и складские остатки. Дашборд победил в номинации «Выбор члена жюри».</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: продажи конкурса Fastboard</p>
+                    <p class="meta">⚙️ Стек: Fastboard, SQL, ClickHouse</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Contest_BI-Project_Sales-Financial-Analysis" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://demo.fastboard.online/public/c8a7227d-6bf7-42eb-96f3-7358295e46fa/board/dc056874-305d-11ee-8c70-04d4c47aef75" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-hackathon">
+                <img class="project-shot" src="foto/hackathon_sber.jpg" alt="Россия через анализ муниципальных данных">
+                <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
+                <h3>Россия через анализ муниципальных данных</h3>
+                <p>Проект команды «FASTBOARD» для хакатона лаборатории «СберИндекс».</p>
+                <p>7 июля 2025 года</p>
+                <p>Место проведения: Москва, Кутузовский проспект, д. 32, к. 1</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: СберИндекс, Росстат</p>
+                    <p class="meta">⚙️ Стек: Fastboard, SQL, ClickHouse</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Sber-Index-Hackathon_Data-Sense" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-hackathon">
+                <img class="project-shot" src="foto/hackathon_gsh.jpg" alt="Анализ уязвимых мест экспорта Москвы">
+                <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
+                <h3>Анализ уязвимых мест экспорта Москвы</h3>
+                <p>Анализ наиболее уязвимых мест в выпадающем из-за санкций экспорте Москвы на основе данных Федеральной таможенной службы (ФТС). Организатор: Московский экспортный центр (МЭЦ)</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: ФТС</p>
+                    <p class="meta">⚙️ Стек: Google Sheets</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Hackathon-DA-Project" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://docs.google.com/spreadsheets/d/15KC6h2NDxStrkNJAvQLOxy9itxK1qdTNCzO5R8ywO1Y/edit?gid=1492720701#gid=1492720701" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+            <div class="grid-hold" aria-hidden="true"></div>
+
+            <div class="project cat-dataart">
+                <img class="project-shot" src="foto/dateart_flowers_numbers.jpg" alt="Пластиковый портрет">
+                <span class="tag-row"><span class="tag-dot dot-dataart"></span>Data Art</span>
+                <h3>Пластиковый портрет</h3>
+                <p>Материальный дата-арт: портрет сообщества «Цветы и цифры» из счётных палочек и цветных кабельных хомутов. Цвет хомута — навык, длина — уровень, цвет палочки — пол. Легенда и компоновка собраны в Figma. Проект стал материалом статьи в Nightingale.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Google-таблица участников сообщества «Цветы и цифры»</p>
+                    <p class="meta">⚙️ Стек: Figma</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Data-Art_Plastic_Portrait" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://nightingaledvs.com/plastic-portrait-cable-ties/" target="_blank" rel="noopener">Статья в Nightingale</a>
+                </div>
+            </div>
+
+            <div class="project cat-dataart">
+                <img class="project-shot" src="foto/dateart_public.jpg" alt="Мои издательские проекты">
+                <span class="tag-row"><span class="tag-dot dot-dataart"></span>Data Art</span>
+                <h3>Мои издательские проекты</h3>
+                <p>Дата-арт по собственным издательским проектам: ряды книжных полок как горизонтальный барчарт. Книги, переплёт, репринты и настольные игры закодированы близко к предмету и упрощены, чтобы визуал читался. Собрано в Figma по карандашным эскизам.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: собственные издательские проекты</p>
+                    <p class="meta">⚙️ Стек: Figma</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Data-Art_My-publishing-projects/tree/main" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-dataart">
+                <img class="project-shot" src="foto/dateart_misik.png" alt="Музыкальный дата-арт">
+                <span class="tag-row"><span class="tag-dot dot-dataart"></span>Data Art</span>
+                <h3>Музыкальный дата-арт</h3>
+                <p>Постер по выбранной песне: MIDI разобран в CSV, координаты круга получены через cos() и sin(). Визуализация после воркшопа Натальи Киселёвой; варианты собраны в Tableau, Power BI, rawgraphs, Figma и p5js.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: MIDI и mp3 песни, CSV</p>
+                    <p class="meta">⚙️ Стек: Tableau, Power BI, rawgraphs, Figma, Google Sheets, Collab, p5js</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Musical-Data-Art" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/musicdateartposter/Dashboard1" target="_blank" rel="noopener">Tableau</a>
+                </div>
+            </div>
+            <div class="grid-hold" aria-hidden="true"></div>
+
+            <div class="project cat-python">
+                <span class="tag-row"><span class="tag-dot dot-python"></span>Python</span>
+                <h3>Разработка рекомендательной системы курсов онлайн-школы</h3>
+                <p>Подготовка основы рекомендательной системы: анализ данных в SQL и Python и итоговая таблица рекомендаций, чтобы предлагать клиентам подходящие курсы и повышать средний чек.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: PostgreSQL Skillfactory, final.carts и final.cart_items. Synthetic dataset based on real business logic.</p>
+                    <p class="meta">⚙️ Стек: Python, Pandas, NumPy, PostgreSQL</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/DA-Python-Project_Solving-a-complex-business-problem/blob/main/DA_Python_Project_Solving_a_complex_business_problem.ipynb" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-python">
+                <span class="tag-row"><span class="tag-dot dot-python"></span>Python</span>
+                <h3>Поведение пользователей в игре Quiz Freeze</h3>
+                <p>Исследование поведения пользователей в обновлённом приложении мобильной игры Quiz Freeze: как обучение влияет на скорость этапов, оплату и прозрачность прохождения. В выборке — регистрации 2018 года.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: таблицы событий Quiz Freeze, регистрации 2018 года. Synthetic dataset based on real business logic.</p>
+                    <p class="meta">⚙️ Стек: Python, Pandas, NumPy, Matplotlib</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/DA-Python-Project-Analyzing-User-Behavior-in-Digital-Game/blob/main/Analyzing_User_Behavior_in_Digital_Game.ipynb" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-python">
+                <span class="tag-row"><span class="tag-dot dot-python"></span>Python</span>
+                <h3>ARPU по ПК, смартфонам и планшетам</h3>
+                <p>Сбор данных о доходах и аудитории сайта в единый отчёт. ARPU считается по категории устройства — ПК, смартфоны и планшеты — и по марке и модели телефона.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: API Яндекс.Метрики и CSV. Synthetic dataset based on real business logic.</p>
+                    <p class="meta">⚙️ Стек: Python, Pandas, NumPy, requests</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Data-Analysis-Python-Project/blob/main/Data_Analysis_Python_Project.ipynb" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-python">
+                <span class="tag-row"><span class="tag-dot dot-python"></span>Python</span>
+                <h3>Решение по результатам A/B-теста</h3>
+                <p>Анализ результатов A/B-теста двух посадочных страниц туристической компании: какая страница приносит больше покупок туров. Модель on-demand.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: результаты A/B-теста посадочных страниц. Synthetic dataset based on real business logic.</p>
+                    <p class="meta">⚙️ Стек: Python, Pandas, NumPy, SciPy, Matplotlib, Seaborn</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://colab.research.google.com/drive/18URJE8jXoBJlUMDDlfDbiJqorGrJeyTg?usp=sharing" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>© 2026 ElenaTratsevskaya · Portfolio</footer>
+
+</body>
+</html>
