@@ -30,9 +30,9 @@
         .two-col { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; margin-top: 44px; align-items: stretch; }
         .two-col > div { display: flex; flex-direction: column; }
 
-        .about-text p { font-size: 0.93em; color: #3d444d; margin-bottom: 8px; }
+        .about-text p { font-size: 14px; color: #3d444d; margin-bottom: 8px; }
         .about-text p:last-child { margin-bottom: 0; }
-        .about-text .education { margin-top: 10px; }
+        .about-text .education { margin-top: 0; }
 
         .skills-compact { font-size: 0.85em; line-height: 1.7; color: #3d444d; }
         .skills-compact .row { margin-bottom: 5px; }
@@ -196,7 +196,7 @@
         <div class="avatar"></div>
         <div class="titles">
             <h1>ElenaTratsevskaya</h1>
-            <p class="subtitle">Business Intelligence | PBI | SQL | DWH | AI-integration</p>
+            <p class="subtitle">BI-Developer | PBI | SQL | DWH | AI-integration</p>
             <p class="header-links">
                 <a href="https://github.com/ElenaTratsevskaya">GitHub</a>
                 <span>·</span>
@@ -212,10 +212,9 @@
     <div class="two-col">
         <div>
             <div class="about-text">
-                <p>BI-разработчик, создаю отчёты и дашборды в связке Power BI и Figma. Уверенно владею BI и DA-инструментами, регулярно пишу статьи на LinkedIn, участвую в хакатонах по анализу данных, активно использую AI (Cursor).</p>
-                <p>От сбора и моделирования данных до презентации проекта: пайплайны данных, семантические модели, отслеживание KPI и self-service отчётность.</p>
-                <p>Умею работать со стейкхолдерами, держать сроки, презентовать решение, управлять качеством.</p>
-                <p class="education">Имею техническое и бизнес-образование.</p>
+                <p>BI-разработчик, создаю отчёты и дашборды в связке Power BI и Figma. Уверенно владею BI и DA-инструментами, регулярно пишу статьи<br>на LinkedIn, участвую в хакатонах по анализу данных, активно использую<br>AI-инструменты (Cursor).</p>
+                <p>От сбора и моделирования данных до презентации проекта: пайплайны данных, семантические модели, отслеживание KPI и self-service отчётность. Переведу отчётность Power BI → PIX BI, Visiology.</p>
+                <p>Умею работать со стейкхолдерами, держать сроки, презентовать решение, управлять качеством.<br>Имею техническое и бизнес-образование.</p>
             </div>
         </div>
 
@@ -238,11 +237,11 @@
                 <h2>Projects</h2>
             </div>
             <div class="filter-buttons">
-                <button class="filter-all active">All <span class="count">(24)</span></button>
+                <button class="filter-all active">All <span class="count">(29)</span></button>
                 <button class="filter-ai">AI <span class="count">(6)</span></button>
-                <button class="filter-bi">BI <span class="count">(6)</span></button>
+                <button class="filter-bi">BI <span class="count">(10)</span></button>
                 <button class="filter-hackathons">Hackathons <span class="count">(5)</span></button>
-                <button class="filter-dataart">Data Art <span class="count">(3)</span></button>
+                <button class="filter-dataart">Data Art <span class="count">(4)</span></button>
                 <button class="filter-python">Python <span class="count">(4)</span></button>
             </div>
         </div>
@@ -401,7 +400,7 @@
                 <img class="project-shot" src="bi_kafe.jpg" alt="Продажи кофе в вендинговом автомате">
                 <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
                 <h3>Продажи кофе в вендинговом автомате</h3>
-                <p>Дашборд по продажам кофе в автомате: сезон, тип напитка, цена и время покупки в течение дня. Исходные данные дополнены расчётными показателями.</p>
+                <p>Дашборд по продажам кофе в автомате: сезон, тип напитка, цена и время покупки в течение дня. Исходные данные дополнены расчётными показателями. Фон подготовлен в Figma.</p>
                 <div class="meta-block">
                     <p class="meta">📂 Данные: Kaggle, coffee sales</p>
                     <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma</p>
@@ -412,10 +411,10 @@
             </div>
 
             <div class="project cat-bi">
-                <img class="project-shot" src="bi_tallin.jpg" alt="Рестораны Таллина">
+                <img class="project-shot" src="bi_tallin.jpg" alt="Рестораны Таллинна">
                 <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
-                <h3>Рестораны Таллина</h3>
-                <p>Сравнение карты в Power BI и Tableau на одном наборе: рестораны Таллина — кухня, цена, оценки еды, сервиса и атмосферы, координаты. Взвешенный балл: 0,6 еда + 0,2 атмосфера + 0,2 обслуживание.</p>
+                <h3>Рестораны Таллинна</h3>
+                <p>Сравнение карты в Power BI и Tableau на одном наборе: рестораны Таллинна — кухня, цена, оценки еды, сервиса и атмосферы, координаты. Взвешенный балл: 0,6 еда + 0,2 атмосфера + 0,2 обслуживание. Фон подготовлен в Figma.</p>
                 <div class="meta-block">
                     <p class="meta">📂 Данные: Kaggle, Tallinn Restaurants 2026</p>
                     <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma, Tableau</p>
@@ -423,6 +422,63 @@
                 <div class="bottom-row">
                     <a class="open-link" href="https://github.com/ElenaTratsevskaya/Creating-maps-in-Power-BI-and-Tableau" target="_blank" rel="noopener">Открыть проект →</a>
                     <a class="badge-dashboard" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/TallinRestaurants2026/Dashboard1#1" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="bi_wine.jpg" alt="Wine review: балл, цена и винодельня">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Wine review: балл, цена и винодельня</h3>
+                <p>Дашборд по отзывам WineEnthusiast: страна и провинция, винодельня, цена и балл по шкале от 1 до 100. На карте — происхождение вина, отдельно самое дорогое, средняя цена по странам и максимум баллов по аппелласьону. Варианты в Power BI и Tableau. Фон подготовлен в Figma.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, Wine Reviews</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma, Tableau</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/BI-project_wine-review/tree/main" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/Winereview_17319434743550/Dashboardfin" target="_blank" rel="noopener">Интерактивный дашборд</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="bi_iris.jpg" alt="Характеристики цветка Ирис по видам">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Характеристики цветка Ирис по видам</h3>
+                <p>Проект сравнения возможностей Analytic Workspace (AW BI) и Power BI. На одном наборе — характеристики цветка ириса по трём видам, по 50 образцов каждого. Данные из классической статьи Р. А. Фишера 1936 года «Использование множественных измерений в таксономических проблемах». Фон подготовлен в Figma.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, Iris</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma, AW BI</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/BI-project_Iris" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="bi_uefa.jpg" alt="Игроки UEFA EURO 2024">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Игроки UEFA EURO 2024</h3>
+                <p>Дашборд по всем игрокам команд Евро-2024: клуб, возраст, рост и рыночная стоимость. Исходные данные дополнены расчётными показателями. Есть листы с картой и таблицей. Фон подготовлен в Figma.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: Kaggle, UEFA Euro 2024 players</p>
+                    <p class="meta">⚙️ Стек: Power BI, DAX, Power Query, Figma</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/uefa-euro-2024-players-in-the-Power-BI-Figma-dashboard" target="_blank" rel="noopener">Открыть проект →</a>
+                </div>
+            </div>
+
+            <div class="project cat-bi">
+                <img class="project-shot" src="Tableau_mobile.jpg" alt="Данные мобильного приложения">
+                <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
+                <h3>Данные мобильного приложения</h3>
+                <p>Один из первых учебных проектов в BI-инструменте Tableau.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: датасеты Нетология. Synthetic dataset based on real business logic.</p>
+                    <p class="meta">⚙️ Стек: Tableau</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/Dashboard_16960743421840/__" target="_blank" rel="noopener">Интерактивный дашборд</a>
                 </div>
             </div>
 
@@ -473,7 +529,7 @@
                 <img class="project-shot" src="hackathon_sber.jpg" alt="Россия через анализ муниципальных данных">
                 <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
                 <h3>Россия через анализ муниципальных данных</h3>
-                <p>Проект команды «FASTBOARD» для хакатона лаборатории «СберИндекс».</p>
+                <p>Проект команды «FASTBOARD» для хакатона лаборатории «СберИндекс». 2 место.</p>
                 <p>7 июля 2025 года</p>
                 <p>Место проведения: Москва, Кутузовский проспект, д. 32, к. 1</p>
                 <div class="meta-block">
@@ -489,7 +545,7 @@
                 <img class="project-shot" src="hackathon_gsh.jpg" alt="Анализ уязвимых мест экспорта Москвы">
                 <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
                 <h3>Анализ уязвимых мест экспорта Москвы</h3>
-                <p>Анализ наиболее уязвимых мест в выпадающем из-за санкций экспорте Москвы на основе данных Федеральной таможенной службы (ФТС). Организатор: Московский экспортный центр (МЭЦ)</p>
+                <p>Анализ наиболее уязвимых мест в выпадающем из-за санкций экспорте Москвы на основе данных Федеральной таможенной службы (ФТС). 3 место. Организатор: Московский экспортный центр (МЭЦ).</p>
                 <div class="meta-block">
                     <p class="meta">📂 Данные: ФТС</p>
                     <p class="meta">⚙️ Стек: Google Sheets</p>
@@ -544,7 +600,21 @@
                     <a class="badge-dashboard" href="https://public.tableau.com/app/profile/elena.tratcevskaia/viz/musicdateartposter/Dashboard1" target="_blank" rel="noopener">Tableau</a>
                 </div>
             </div>
-            <div class="grid-hold" aria-hidden="true"></div>
+
+            <div class="project cat-dataart">
+                <img class="project-shot" src="dateart_post.jpg" alt="Почтовый проект «Цветы и цифры»">
+                <span class="tag-row"><span class="tag-dot dot-dataart"></span>Data Art</span>
+                <h3>Почтовый проект «Цветы и цифры»</h3>
+                <p>Дата-арт по почтовым отправлениям сообщества «Цветы и цифры». Композиция как роза ветров: направления сторон света, расстояние и время в пути. Собрано в Figma по карандашному эскизу.</p>
+                <div class="meta-block">
+                    <p class="meta">📂 Данные: датасет почтовых отправлений</p>
+                    <p class="meta">⚙️ Стек: Figma</p>
+                </div>
+                <div class="bottom-row">
+                    <a class="open-link" href="https://github.com/ElenaTratsevskaya/Date-Art_Post-Project/tree/main" target="_blank" rel="noopener">Открыть проект →</a>
+                    <a class="badge-dashboard" href="https://datavisualizationstudio.com/datapostcards" target="_blank" rel="noopener">«Цветы и цифры»</a>
+                </div>
+            </div>
 
             <div class="project cat-python">
                 <span class="tag-row"><span class="tag-dot dot-python"></span>Python</span>
