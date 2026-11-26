@@ -6,6 +6,9 @@
     <title>ElenaTratsevskaya | Portfolio</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        #projects { scroll-margin-top: 16px; }
+        #hackathons, #bi, #ai, #dataart, #python { scroll-margin-top: 72px; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: #f6f8fa;
@@ -38,16 +41,24 @@
         .skills-compact .row { margin-bottom: 5px; }
         .skills-compact .cat { font-weight: 700; color: #293241; }
 
-        .projects-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
-        .projects-header .titles h2 { margin-bottom: 0; }
+        .projects-header { margin-bottom: 0; }
+        .projects-header .titles h2 { margin-bottom: 8px; }
 
         /* Кнопки-фильтры */
-        .filter-buttons { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
-        .filter-buttons button {
-            font-family: inherit; font-size: 0.75em; font-weight: 600;
+        .filter-buttons {
+            position: sticky; top: 0; z-index: 5;
+            display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end;
+            background: #f6f8fa;
+            padding: 8px 0 14px;
+        }
+        .filter-buttons a {
+            display: inline-block;
+            font-family: inherit; font-size: 0.75em; font-weight: 600; line-height: 1.6;
             border-radius: 20px; padding: 3px 10px;
             cursor: pointer; transition: all 0.12s ease; white-space: nowrap;
+            text-decoration: none;
         }
+        .filter-buttons a:hover { text-decoration: none; }
         .filter-buttons .count { opacity: 0.75; font-weight: 500; margin-left: 2px; }
 
         .filter-buttons .filter-all { background: #ffffff; border: 1px solid #0969da; color: #0969da; }
@@ -183,8 +194,9 @@
         @media (max-width: 640px) {
             .two-col { grid-template-columns: 1fr; gap: 28px; align-items: start; }
             .header-row { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .projects-header { flex-direction: column; align-items: flex-start; }
+            .projects-header { align-items: flex-start; }
             .filter-buttons { justify-content: flex-start; }
+            #hackathons, #bi, #ai, #dataart, #python { scroll-margin-top: 120px; }
             .projects-grid { grid-template-columns: 1fr; }
             .grid-hold { display: none; }
         }
@@ -232,22 +244,22 @@
     </div>
 
     <div class="section">
-        <div class="projects-header">
+        <div class="projects-header" id="projects">
             <div class="titles">
                 <h2>Projects</h2>
             </div>
-            <div class="filter-buttons">
-                <button class="filter-all active">All <span class="count">(30)</span></button>
-                <button class="filter-hackathons">Hackathons <span class="count">(5)</span></button>
-                <button class="filter-bi">BI <span class="count">(11)</span></button>
-                <button class="filter-ai">AI <span class="count">(6)</span></button>
-                <button class="filter-dataart">Data Art <span class="count">(4)</span></button>
-                <button class="filter-python">Python <span class="count">(4)</span></button>
-            </div>
+        </div>
+        <div class="filter-buttons">
+            <a class="filter-all active" href="#projects">All <span class="count">(30)</span></a>
+            <a class="filter-hackathons" href="#hackathons">Hackathons <span class="count">(5)</span></a>
+            <a class="filter-bi" href="#bi">BI <span class="count">(11)</span></a>
+            <a class="filter-ai" href="#ai">AI <span class="count">(6)</span></a>
+            <a class="filter-dataart" href="#dataart">Data Art <span class="count">(4)</span></a>
+            <a class="filter-python" href="#python">Python <span class="count">(4)</span></a>
         </div>
 
         <div class="projects-grid">
-            <div class="project cat-hackathon">
+            <div class="project cat-hackathon" id="hackathons">
                 <img class="project-shot" src="hackathon_visiology.png" alt="Розничные вклады банка «Северный контур»">
                 <span class="tag-row"><span class="tag-dot dot-hackathon"></span>Hackathon</span>
                 <h3>Розничные вклады банка «Северный контур»</h3>
@@ -320,7 +332,7 @@
                     <a class="badge-dashboard" href="https://docs.google.com/spreadsheets/d/15KC6h2NDxStrkNJAvQLOxy9itxK1qdTNCzO5R8ywO1Y/edit?gid=1492720701#gid=1492720701" target="_blank" rel="noopener">Интерактивный дашборд</a>
                 </div>
             </div>
-            <div class="project cat-bi">
+            <div class="project cat-bi" id="bi">
                 <img class="project-shot" src="Cub_5.gif" alt="OLAP-куб и дашборд в Excel">
                 <span class="tag-row"><span class="tag-dot dot-bi"></span>BI</span>
                 <h3>OLAP-куб и дашборд в Excel</h3>
@@ -478,7 +490,7 @@
                 </div>
             </div>
 
-            <div class="project cat-ai">
+            <div class="project cat-ai" id="ai">
                 <img class="project-shot" src="ai_labor_market.png" alt="Рынок труда и влияние ИИ к 2030">
                 <span class="tag-row"><span class="tag-dot dot-ai"></span>AI</span>
                 <h3>Рынок труда и влияние ИИ к 2030</h3>
@@ -568,7 +580,7 @@
                 </div>
             </div>
 
-            <div class="project cat-dataart">
+            <div class="project cat-dataart" id="dataart">
                 <img class="project-shot" src="dateart_flowers_numbers.jpg" alt="Пластиковый портрет">
                 <span class="tag-row"><span class="tag-dot dot-dataart"></span>Data Art</span>
                 <h3>Пластиковый портрет</h3>
@@ -627,7 +639,7 @@
                 </div>
             </div>
 
-            <div class="project cat-python">
+            <div class="project cat-python" id="python">
                 <span class="tag-row"><span class="tag-dot dot-python"></span>Python</span>
                 <h3>Разработка рекомендательной системы курсов онлайн-школы</h3>
                 <p>Подготовка основы рекомендательной системы: анализ данных в SQL и Python и итоговая таблица рекомендаций, чтобы предлагать клиентам подходящие курсы и повышать средний чек.</p>
